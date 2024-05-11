@@ -13,6 +13,7 @@ class CPU:
 
     @property
     def family(self) -> RyzenFamily:
+        # Family A Model B Stepping C
         signature: list[str] = self.search_for("Signature").split(',')
         family: int = int(signature[1].split()[1])
         model: int = int(signature[2].split()[1])
