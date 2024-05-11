@@ -6,8 +6,8 @@ from typing import Final
 LOCAL_VERSION: Final[str] = "0.2.9"
 
 
-shell = Shell("070108")
-dmi = shell.run("dmidecode -t processor")
+shell: Shell = Shell("070108")
+dmi: str = shell.run("dmidecode -t processor")
 
-cpu = CPU(dmi)
+cpu: CPU = CPU(dmi)
 print(cpu.family)
