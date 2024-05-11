@@ -1,6 +1,7 @@
 import re
 from .ryzen_family import RyzenFamily
 
+
 class CPU:
     def __init__(self, dmidecode_output: str):
         self.__dmidecode_output = dmidecode_output

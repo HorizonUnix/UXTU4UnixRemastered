@@ -10,3 +10,4 @@ shell = Shell("070108")
 dmi = shell.run("dmidecode -t processor")
 
 cpu = CPU(dmi)
+print(cpu.family)
