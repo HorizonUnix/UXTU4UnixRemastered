@@ -1,6 +1,11 @@
+import getpass
+from argparse import ArgumentParser
 from core import CPU, Shell
 
-shell = Shell("070108")
+
+password = getpass.getpass(prompt=f"[sudo] password for hmm {getpass.getuser()}: ")
+
+shell = Shell(password)
 dmi = shell.run("dmidecode -t processor")
 
 cpu = CPU(dmi)
