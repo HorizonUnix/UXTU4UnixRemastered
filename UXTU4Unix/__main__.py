@@ -3,7 +3,7 @@ from argparse import ArgumentParser
 from core import CPU, Shell
 
 
-password = getpass.getpass(prompt=f"[sudo] password for hmm {getpass.getuser()}: ")
+password = getpass.getpass(prompt=f"[sudo] password for {getpass.getuser()}: ")
 
 shell = Shell(password)
 dmi = shell.run("dmidecode -t processor")
