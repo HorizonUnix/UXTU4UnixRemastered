@@ -117,4 +117,4 @@ def get_processor_type(model_name: str, code_name: RyzenFamily) -> ProcessorType
              RyzenFamily.Vermeer | RyzenFamily.Raphael | RyzenFamily.GraniteRidge:
             return ProcessorType.AmdDesktopCpu
         case _:
-            return ProcessorType.AmdLaptopCpu
+            return ProcessorType.AmdApu
