@@ -1,5 +1,5 @@
 # UXTU4UnixRemastered
-(A better version of UXTU4Unix, including both CLI and GUI, will be integrated into UXTU4UniUsx once it’s done.) 
+(A better version of UXTU4Unix, including both CLI and GUI, will be integrated into UXTU4Unix once it’s done.) 
 - This is still in early development, please do not use this for daily use!
 ## Usage
 ```
