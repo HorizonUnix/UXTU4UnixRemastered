@@ -3,7 +3,7 @@
 - This is still in early development, please do not use this for daily use!
 ## Usage
 ```
-git clone https://github.com.AppleOSX/UXTU4UnixRemastered.git
+git clone https://github.com/AppleOSX/UXTU4UnixRemastered.git
 cd UXTU4UnixRemastered
 python3 UXTU4Unix
 ```
