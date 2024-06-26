@@ -1,0 +1,69 @@
+name: Build ryzenAdj macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build ryzenAdj macOS
+    runs-on: macos-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+           ref: ${{ github.event.pull_request.head.sha }}
+           fetch-depth: 0
+           
+      - name: Clone DirectHW
+        run: git clone https://github.com/joevt/directhw.git
+        
+      - name: Xcodebuild 
+        working-directory: ./directhw/DirectHW
+        run: xcodebuild -alltargets -project DirectHW.xcodeproj
+        
+      - name: libs
+        working-directory: ./directhw/DirectHW
+        run: make libs
+
+      - name: Prepare binaries
+        run: |
+          brew install cmake
+          cd directhw/DirectHW/build
+          mkdir -p /tmp/include/DirectHW          
+          cp Release/usr/local/include/DirectHW.h /tmp/include/DirectHW
+          cp Release/libDirectHW.a  /tmp/include
+
+      - name: Clone and Build pciutils-osx
+        run: |
+          git clone https://github.com/vampirecat35/pciutils-osx.git     
+          cd pciutils-osx
+          sed -i -e 's/Frameworks/Frameworks -I\/tmp\/include/' Makefile
+          sed -i -e 's/usr\/local\/lib/tmp\/include/' lib/configure
+          make
+          mkdir -p /tmp/include/pci
+          cp lib/*.h /tmp/include/pci
+          cp lib/libpci.a /tmp/include
+
+      - name: Clone and Build RyzenAdj
+        run: |
+          git clone https://github.com/FlyGoat/RyzenAdj.git
+          cd RyzenAdj
+          sed -i -e 's/${INC_DIR}/\/tmp\/include/' CMakeLists.txt
+          sed -i -e 's/ pci/ pci DirectHW/' CMakeLists.txt
+          sed -i -e 's/${OS_LINK_DIR}/\/tmp\/include/' CMakeLists.txt
+          mkdir build && cd build
+          cmake -DCMAKE_BUILD_TYPE=Release ..
+          make
+          
+      - name: Prepare final product
+        run: |
+          mkdir -p Artifacts
+          cp RyzenAdj/build/ryzenadj Artifacts
+          chmod +x Artifacts/ryzenadj
+          
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ryzenadj-artifact
+          path: Artifacts/ryzenadj
