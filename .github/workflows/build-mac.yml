@@ -16,7 +16,7 @@ jobs:
            fetch-depth: 0
            
       - name: Clone DirectHW
-        run: git clone https://github.com/joevt/directhw.git
+        run: git clone https://github.com/HorizonUnix/directhw.git
         
       - name: Xcodebuild 
         working-directory: ./directhw/DirectHW
@@ -36,7 +36,7 @@ jobs:
 
       - name: Clone and Build pciutils-osx
         run: |
-          git clone https://github.com/vampirecat35/pciutils-osx.git     
+          git clone https://github.com/HorizonUnix/pciutils-osx.git     
           cd pciutils-osx
           sed -i -e 's/Frameworks/Frameworks -I\/tmp\/include/' Makefile
           sed -i -e 's/usr\/local\/lib/tmp\/include/' lib/configure
